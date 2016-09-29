@@ -35,12 +35,15 @@
 
 </template>
 
+<style lang="sass">
+  @import "../../sass/_Scrollbar.sass";
+</style>
+
 <script>
 
   import verticalScrollbar from './vertical-scrollbar.vue';
   import horizontalScrollbar from './horizontal-scrollbar.vue';
 
-  require('../../sass/_Scrollbar.sass');
 
   export default {
 
@@ -202,7 +205,7 @@
 
       handleChangePosition(vScrollbar, orientation){
         // Convert Percentage to Pixel
-        let next = vScrollbar / 100 * ( orientation == 'vertical' ? this.scrollAreaHeight : this.scrollAreaWidth )
+        let next = vScrollbar / 100 * this.scrollAreaHeight
         if( orientation == 'vertical' ) this.normalizeVertical(next)
         if( orientation == 'horizontal' ) this.normalizeHorizontal(next)
       },
