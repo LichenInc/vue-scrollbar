@@ -10,7 +10,9 @@
     @touchmove="onDrag"
     @touchend="stopDrag"
     v-bind:class="(dragging ? '' : 'vue-scrollbar-transition')"
-    v-bind:style="{ 'margin-top': top * -1 +'px', 'margin-left': left * -1 +'px' }"
+    v-bind:style="{ 'margin-top': top * -1 +'px', 'margin-left': left * -1 +'px' }",
+    v-resizedetect,
+    :on-resize="calculateSize"
   )
 
     slot
@@ -43,6 +45,7 @@
 
   import verticalScrollbar from './vertical-scrollbar.vue';
   import horizontalScrollbar from './horizontal-scrollbar.vue';
+  import elementResizeDetector from 'element-resize-detector';
 
 
   export default {
@@ -242,7 +245,23 @@
     beforeDestroy(){
       // Remove Event
       window.removeEventListener('resize', this.calculateSize)
-    }
+    },
+    directives: {
+      resizedetect: {
+        params: ['onResize'],
+        bind() {
+          this.__erd = elementResizeDetectorMaker({
+            strategy: "scroll" //<- For ultra performance.
+          })
+          this.__erd.listenTo(this.el, (element) => {
+            if (this.params.onResize) this.params.onResize()
+          })
+        },
+        unbind() {
+          this.__erd.uninstall(this.el)
+        },
+      },
+    },
 
 
   };
