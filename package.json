@@ -44,8 +44,10 @@
     "webpack": "^1.13.0",
     "webpack-dev-server": "^1.14.1"
   },
+  "peerDependencies": {
+    "vue": "^1.x"
+  },
   "dependencies": {
-    "vue": "^1.0.21",
     "element-resize-detector": "=1.1.9"
   }
 }
