@@ -250,7 +250,7 @@
       resizedetect: {
         params: ['onResize'],
         bind() {
-          this.__erd = elementResizeDetectorMaker({
+          this.__erd = elementResizeDetector({
             strategy: "scroll" //<- For ultra performance.
           })
           this.__erd.listenTo(this.el, (element) => {
